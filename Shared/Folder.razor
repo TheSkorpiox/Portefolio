@@ -1,0 +1,65 @@
+﻿@inherits Item
+
+<Item Name="@Name" ImagePath="@ImagePath" OnDoubleClickCallback="() => isOpened = true" />
+
+@if (isOpened)
+{
+    <div class='window' style='top: @(offsetY)px; left: @(offsetX)px;'>
+        <div class='window-top-bar' @onmousedown="OnMouseDown" @onmouseup="OnMouseUp" @onmouseout="OnMouseOut" @onmousemove="OnMouseMove">
+            <img src='@ImagePath' class='window-image' />
+            <div class='window-title'>@Name</div>
+        </div>
+        <div class='window-body'>
+            @ChildContent
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool isOpened = false;
+    private bool canMove = false;
+
+    // TODO: Find a better way to handle window move
+    // Window position
+    private double clientX = 200;
+    private double clientY = 150;
+
+    private double startX = 0;
+    private double startY = 0;
+
+    private double offsetX = 200;
+    private double offsetY = 150;
+
+    private void OnMouseDown(MouseEventArgs mouseEventArgs)
+    {
+        canMove = true;
+        startX = mouseEventArgs.ClientX;
+        startY = mouseEventArgs.ClientY;
+    }
+
+    private void OnMouseUp(MouseEventArgs mouseEventArgs)
+    {
+        canMove = false;
+        clientX = offsetX;
+        clientY = offsetY;
+    }
+
+    private void OnMouseOut(MouseEventArgs mouseEventArgs)
+    {
+        canMove = false;
+        clientX = offsetX;
+        clientY = offsetY;
+    }
+
+    private void OnMouseMove(MouseEventArgs mouseEventArgs)
+    {
+        if (canMove)
+        {
+            offsetX = clientX + (mouseEventArgs.ClientX - startX);
+            offsetY = clientY + (mouseEventArgs.ClientY - startY);
+        }
+    }
+}

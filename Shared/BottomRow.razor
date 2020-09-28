@@ -1,0 +1,17 @@
+﻿<div class='bottom-row'>
+    <div class='datetime'>
+        <div>@DateTime.Now.ToString("HH:mm")</div>
+        <div>@DateTime.Now.ToString("dd/MM/yyyy")</div>
+    </div>
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        System.Threading.Timer timer = new System.Threading.Timer(async (state) =>
+        {
+            await InvokeAsync(() => StateHasChanged());            
+        }, null, 1000, 1000);
+    }
+}

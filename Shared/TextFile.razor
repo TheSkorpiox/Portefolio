@@ -1,0 +1,73 @@
+﻿@inherits Item
+
+@using System.IO
+
+<Item Name="@Name" ImagePath="@ImagePath" OnDoubleClickCallback="() => isOpened = true" />
+
+@if (isOpened)
+{
+    <div class='window file' style='top: @(offsetY)px; left: @(offsetX)px;'>
+        <div class='window-top-bar' @onmousedown="OnMouseDown" @onmouseup="OnMouseUp" @onmouseout="OnMouseOut" @onmousemove="OnMouseMove">
+            <img src='@ImagePath' class='window-image' />
+            <div class='window-title'>@Name</div>
+        </div>
+        <div class='window-body'>
+            @((MarkupString)Markdig.Markdown.ToHtml(fileContent))
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string FilePath { get; set; }
+
+    private string fileContent = "";
+    private bool isOpened = false;
+    private bool canMove = false;
+
+    // TODO: Find a better way to handle window move
+    // Window position
+    private double clientX = 200;
+    private double clientY = 150;
+
+    private double startX = 0;
+    private double startY = 0;
+
+    private double offsetX = 200;
+    private double offsetY = 150;
+
+    protected override async Task OnInitializedAsync()
+    {
+        fileContent = await File.ReadAllTextAsync(FilePath);
+    }
+
+    private void OnMouseDown(MouseEventArgs mouseEventArgs)
+    {
+        canMove = true;
+        startX = mouseEventArgs.ClientX;
+        startY = mouseEventArgs.ClientY;
+    }
+
+    private void OnMouseUp(MouseEventArgs mouseEventArgs)
+    {
+        canMove = false;
+        clientX = offsetX;
+        clientY = offsetY;
+    }
+
+    private void OnMouseOut(MouseEventArgs mouseEventArgs)
+    {
+        canMove = false;
+        clientX = offsetX;
+        clientY = offsetY;
+    }
+
+    private void OnMouseMove(MouseEventArgs mouseEventArgs)
+    {
+        if (canMove)
+        {
+            offsetX = clientX + (mouseEventArgs.ClientX - startX);
+            offsetY = clientY + (mouseEventArgs.ClientY - startY);
+        }
+    }
+}

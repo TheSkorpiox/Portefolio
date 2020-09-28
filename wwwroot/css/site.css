@@ -1,0 +1,108 @@
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+body {
+    background-image: url('../res/wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    user-select: none;
+}
+
+.item {
+    width: 99px;
+    border: 1px solid transparent;
+    text-align: center;
+    margin: 5px;
+    color: white;
+}
+
+.item-image {
+    width: 72px;
+    height: 72px;
+}
+
+.item-name {
+    text-align: center;
+}
+
+.item:hover {
+    background-color: rgba(173, 216, 230, 0.3);
+    border: 1px solid lightgrey;
+}
+
+.window {
+    position: absolute;
+    top: 200px;
+    left: 150px;
+    width: 640px;
+    height: 480px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px black;
+}
+
+.window-top-bar {
+    background-color: lightgrey;
+    color: black;
+    height: 25px;
+}
+
+.window-image {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+    float: left;
+    width: 20px;
+    height: 20px;
+}
+
+.window-title {
+    float: left;
+    padding-top: 3px;
+}
+
+.window .item {
+    color: black;
+    float: left;
+}
+
+.file {
+    width: 480px;
+    height: 640px;
+}
+
+.bottom-row {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.datetime {
+    float: right;
+    text-align: center;
+    margin-right: 60px;
+}
