@@ -106,3 +106,7 @@ body {
     text-align: center;
     margin-right: 60px;
 }
+
+body {
+    overflow: hidden;
+}
